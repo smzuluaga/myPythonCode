@@ -545,4 +545,82 @@ dict_dates = {name: age for (name,age) in zip (names, ages) if age>25}
 # TUPLE         False       True            True                True
 # SET           True        False           False               False
 
-#CONTINUAR EN QUOKKA
+#sets - funciones PENDIENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+
+
+
+
+
+# GESTOR DE PAQUETES DE PYTHON - Permite acceder a librerías y frameworks que podemos usar para nuestros proyectos para solucionar ciertos problems en específico.
+# https://pypi.org/ -  SITIO WEB PARA VISUALIZAR LIBRERÍAS Y SUS DOCUMENTACIONES, VERSIONES, ETC
+
+# DIRERENCIA ENTRE MODULO, PAQUETE, LIBRERIA, FRAMWORK Y DEPENDENCIA
+#   *Módulo. La pieza más pequeña de software. Puede ser un conjunto de métodos o funciones para usarlo.
+#   *Paquete. Colección de módulos.
+#   *Librería. Colección de paquetes.
+#   *Framework. Conjunto de librerías. No solo ofrecen funcionalidades, sino que también arquitectura. Uno no incluye un framework, uno incluye código dentro de un framework.
+#   *Dependencia. Se refiere a cuán interconectados están los módulos. O sea, que tu software depende de módulos para funcionar.
+
+# DESCARGAR WSL PARA USAR LAS FUNCIONALIDADES DE PIP
+# 1. Ir a powershell y digitar:
+#               'wsl --install
+# 2. Esperar que descargue y reiniciar el pc.
+# 3. Configurar ubuntu asignando usuario y clave:  }
+#       User: smzuluaga1
+#       Password: Zuluaga1
+# 4. INSTALAR GESTOR DE PAQUETES PIP, con el comando:
+#               'sudo apt install -y python3-pip'
+# 5. INSTALAR LAS SIGUIENTES HERRAMIENTAS, con el comando:
+#               'sudo apt install -y build-esential libssl-dev libffi-dev python3-dev '
+
+# CÓMO USAR PIP
+# Ir a la terminal (basada en linux), ubicarse en el directorio dondeva a descargar al librería y usar el comando:
+#                'pip3 install numpy'
+#                 ____________ _____
+#                     1          2     => 1. Comando para Instalar / 2. Nombre de la librería que vamos a usar. 
+
+# Una librería puede basarse de otras librerías para usarse, por ende, cuando se descarga una librería en específico, es normal que se descarguen otras librerías y cuando esto pasa, la terminal nos muestra las dependencias adicionales que la librería está descargando,
+
+# Con este comando podemos ver el arbold e librerías que estamos usando en el entorno  general de Python en el PC, no se visualiza por proyecto.
+#                 'pip3 freeze'
+# 
+# 
+# AMBIENTES VIRTUALES EN PYTHON - 
+# Cuando instalamos librerías y módulos, se instalaron de forma general para todos los proyectos ejecutados en el pc donde estamos descargando la librería. Esto hace que si se está trabajando en varios proyectos en el mismo pc, esta característica de generalidad de las librerías puede generar choques, puesto que un proyecto puede necesitar una version específica de x librería y otro proyecto puede necesitar una versión específica de la misma libreía.
+# Como solucion a este problema,  LOS AMBIENTES VIRTUALES encapsulan la descarga de modulos y librerías a un proyecto específico para que cada proyecto tenga sus propias librerías y no colisione con otro proyecto cuando ambos necesitan versiones diferentes de la misma librería,
+
+#COMO USAR AMBIENTES VIRTUALES-
+# 1. Validar dónde se está corriendo python  y pip con el comando:
+#                  'which python3'
+#                  'which pip3' 
+# 2. Para windos con WSL y Linux, se debe instalar el siguiente paquete desde terminal:
+#                  'apt install -y python3-venv'
+# 3. Ir a la carpeta donde queremos crear el ambiente virtual y ejecutamos el comando:
+#                  'python3 -m venv env
+#                   ______________  ___
+#                          1         2    = 1. Comando para crear entorno virtual // 2. nombre que le queremos dar al entorno virtual
+# 4. Activar el ambiente virtual con el comando:
+#                   'source env/bin/activate
+# Para salir del ambiente virtual, usamos el comando:
+#                   'deactivate'
+# cuando se correo 'pip3 freeze' desde el ambiente virtual, no saldrá nada a menos que ya hayamos descargado paquetes y librerias.
+
+# REQUIREMENTS.TXT - es un archivo que se crea para gestionar todas las dependencias y modulos que usa un proyecto, es una automatizacion de ese importe de dependencias.
+# Para esto se puede captar todos los requerimientos de un aplicativo y exportarlo a un txt, de la siguiiente forma:
+#                    'pip3 freeze > requirements.txt
+# Para descarar esos requerimientos del aplicativo en otro pc, nos situamos en ese pc y ejecutamos el comando:
+#                    'pip3 install -r requirements.txt'
+
+
+#DEPENDENCIA REQUESTS -nos permite hacer peticiones a otros sitios web
+#                   'pip3 install requests'
+#
+
+#DEPENDENCIA PANDAS - sirve para anlizar y manipular archivos duros como .csv
+# #                   'pip3 install pandas'
+
+#PYTHON PARA BACKEND - LIBRERÍA FAST API y UVICORN
+#                   'pip3 install fastapi'
+#                   'pip3 install "uvicorn[standard]"'
+
+#DOCKER - Herramienta que sirve para aislar entornos de ejecucion y versiones de python, para que cuando subimos proyectos a la nube, no generen choque si esta programado con diferentes versiones de python, esto lo hace con una tecnología de contenedores.
