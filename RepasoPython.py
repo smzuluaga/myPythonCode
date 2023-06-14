@@ -122,6 +122,12 @@ print(string[5:])
 print(string[5::2])
 print(array[-4:-2])
 """
+#METODOS PARA MANEJO DE NUMEROS
+
+#Enumerate - convierte a un numero en iterable y devuelve una lista de tuplas, separando el numero entregado en digitos y si indice  => (1,2) => 1. indice / 2. digito del numero. para pasar un numero como parametro, debemos convertirlo a string para que sea iterable
+number = 8948758
+""" print (list(enumerate(str(number)))) """
+#   output => [(0, '8'), (1, '9'), (2, '4'), (3, '8'), (4, '7'), (5, '5'), (6, '8')]
 
 #LISTAS (Mutables) - permite almacenar diferentes tipos de datos en una sola estructura de datos.
 decimal_numbers =[0,1,2,3,4,5,6,7,8,9]
@@ -624,3 +630,29 @@ dict_dates = {name: age for (name,age) in zip (names, ages) if age>25}
 #                   'pip3 install "uvicorn[standard]"'
 
 #DOCKER - Herramienta que sirve para aislar entornos de ejecucion y versiones de python, para que cuando subimos proyectos a la nube, no generen choque si esta programado con diferentes versiones de python, esto lo hace con una tecnología de contenedores.
+
+#MODULOS CHEVERES - IMPORTAR 
+
+# string
+import string
+# método string.capwords(string, sep = None)  => permite poner en mayuscula cada palabra de un string, hace las veces dejuntar un split(' '), capitalize() en cada palabra iterada y luego un ' '.join
+#       ______________  ______  __________
+#             1           2         3        => 1. metodo capwords de la librería string // 2. string que vamos a aplicar el método // 3. indicador del separador que queremos que tome para hacer el split(), si no s epone el segundo argumento o se pone sep= None, el sistema por defecto lo toma como espacio en blanco.
+# Example = 
+sentence = 'Python-is one of the best programming languages.'
+formatted = string.capwords(sentence, sep = None)
+""" print (formatted) """
+#       output =>  'Python-is One Of The Best Programming Languages.'
+
+# collections
+import collections
+# método Counter collections.Counter(x) - retorna un diccionario con par clave: valor. la clave será cada elemento del string(caracter) o de la lista(elemento) y el valor será la cantidad de coincidencias de dicho elemento dentro del string o lista
+#              _________________ _ 
+#                      1         2  =>  1. método Counter de la librería collections // 2. string, o array que queremos poner como parametro para contar.
+# Example =
+array = [0,2,4,0,2,4,6,8,10]
+""" print(collections.Counter(array)) """
+
+# random
+# método random
+# método choise
