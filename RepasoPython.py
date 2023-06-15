@@ -106,6 +106,25 @@ print('*****'*5)
 print(string) 
 """
 
+#Reverse para strings (la funcion no se llama así, pero hace lo que hace un reverse)
+#Una forma de hacer reverso a las palabras es usar la sintaxys de slicing y en el tercer argumento que indica los saltos, se pone el numero -1
+#Ejem =
+string = 'hola'
+""" print (string[::-1]) """
+    #output -> 'aloh'
+#Ejemplo2=
+array = ['hey', 'fellow', 'warriors']
+""" print ([x[::-1] for x in array]) """
+
+#Center -sirve para centrar elementos de un string, a partir de una longitud pasada por parámetro.
+star = '*'
+star2= '***'
+""" print(star.center(4))
+print(star2.center(5)) """
+#   output => '  *  '
+#   output => ' *** '
+# en este caso por ejemplo se le pasó por parametro 5 que es la longitud total en la cual debe centrar el elemento en la variable star y star 2, sirve por ejemplo para patrones
+
 #Indexing
 #las strings, listas, tuplas y diccionarios tienen acceso a cada uno de sus componentes a través de indexing, es decir, el numero de indices.
 """ 
@@ -186,14 +205,7 @@ dif_data.pop(0)
 decimal_numbers.reverse()
 """ print (decimal_numbers) """
     #output -> [10, 9, 8, 7, 6, 5, 4, 3, '10', 2, 1, 0] 
-#otra forma de hacer reverso a las palabras es usar la sintaxys de slicing y en el tercer argumento que indica los saltos, se pone el numero -1
-#Ejem =
-string = 'hola'
-""" print (string[::-1]) """
-    #output -> 'aloh'
-#Ejemplo2=
-array = ['hey', 'fellow', 'warriors']
-""" print ([x[::-1] for x in array]) """
+
 
 #Sort - (Update) - ordena la lista - si se tienen diferentes tipos de datos en la lista, no se puede usar esta opcion
 desordered_num.sort()
@@ -654,5 +666,24 @@ array = [0,2,4,0,2,4,6,8,10]
 """ print(collections.Counter(array)) """
 
 # random
+import random
 # método random
 # método choise
+
+# sub
+from re import sub 
+# funcioon  sub('[a-m]', '', s) - permite extraer substrings de un string, o reemplazar valores por otros
+#           ___  _____   __  _
+#            1     2     3   4  =>  1. funcion sub / 2.argumento que indica que elemento del string queremos reemplazar / 3. argumento que indica por que elemento queremos reemplazar el elemento anterior / 4. string en la que queremos ejecutar la funcion.
+m = 'aaaxbbbbyyhwawiwjjjwwm'
+# Example:
+k = sub("[a-m]",'',m)
+print (k)
+#    output => 'xyywwwww'
+
+stringt = 'The quick brown fox jumps over the lazy dog'
+ 
+""" print('e' in stringt) """
+
+stars = '*'
+""" print(stars.center(3)) """
