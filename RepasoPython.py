@@ -27,18 +27,19 @@ print ('Hola {} {}, eres Bienvenido'.format (nombre,apellido))
 print (f'Hola {hola}, Bienvenido')  """
 
 #Tipos de datos
-#Primitivos (inmutables)
+#Primitivos (inmutables) - TAMBIEN SE DENOMINAN OBJETOS LITERALES
 """ 
-    *String str()
-    *Entero int()
-    *Flotante float()
-    *boleano bool()
+# escalar = que solo representa a una unica variable al mismo tiempo, no se puede subdividir en partes  // no escalar = que se puede dividir o descomponer en partes más pequeñas
+    *String str() -no escalar
+    *Entero int() - escalar
+    *Flotante float() - escalar
+    *boleano bool() - escalar
 """ 
 #Otros 
 """
-    *Listas list()
-    *Tuplas tuple()
-    *Diccionario dict() 
+    *Listas list() - no escalar
+    *Tuplas tuple() - no escalar
+    *Diccionario dict() - no escalar
 """
 
 #Prueba Casteo
@@ -148,6 +149,20 @@ number = 8948758
 """ print (list(enumerate(str(number)))) """
 #   output => [(0, '8'), (1, '9'), (2, '4'), (3, '8'), (4, '7'), (5, '5'), (6, '8')]
 
+# divmod - Retorna una tupla con el entero y el residuo de un numero.
+""" print (divmod(number, 10)) """
+#     _______ ______  ___
+#       1       2      3  =>  1. funcion divmod / 2.numero que se pasa por parámetro como dividendo / 3. numero que se pasa por parametro como divisor
+#   output => (894875, 8)
+#              ______  _
+#                 1    2  => 1. numero entero de la division / 2. resto de la division
+
+# max() - retorna el numero mayor de una lista de numeros, tambien sirve en listas de strings
+# max(array, key = len)
+# ___ ____   _________
+#  1    2         3     => 1. metodo max // 2. array o string del que queremos saber el maximo // 3. es un argumento opcional, cuando estamso trabajando con una lista de strings, podemos pasarle dicho argumento, para que nos retorne el string con la longitud mas larga
+
+
 #LISTAS (Mutables) - permite almacenar diferentes tipos de datos en una sola estructura de datos.
 decimal_numbers =[0,1,2,3,4,5,6,7,8,9]
 dif_data = ['hola', True, 2, 3.4,('a','b'), {'pais': 'Colombia'}, [1,2,3,4,5]]
@@ -210,6 +225,14 @@ decimal_numbers.reverse()
 #Sort - (Update) - ordena la lista - si se tienen diferentes tipos de datos en la lista, no se puede usar esta opcion
 desordered_num.sort()
 """ print (desordered_num) """
+
+#Sorted - (Update) - ordena una lista, un string, un set, y lo convierte en una lista.
+# Example:
+""" print (sorted({5,9,1,5,4,87})) """
+#   output '[1, 4, 5, 9, 87]'
+#Example2: 
+""" print (sorted('kslabcdetbfgt')) """
+#   output '['a', 'b', 'b', 'c', 'd', 'e', 'f', 'g', 'k', 'l', 's', 't', 't']'
 
 #TUPLAS (Inmutables) - son estructuras de datos similares a las listas pero no pueden ser mutadas. tambien pueden almacenar diferentes tipos de datos, usualmente se usa como atributos o para consultas.
 tuple1 = (1,2,3,4,5,6,7,1,2,3,4,5,6)
@@ -665,11 +688,6 @@ import collections
 array = [0,2,4,0,2,4,6,8,10]
 """ print(collections.Counter(array)) """
 
-# random
-import random
-# método random
-# método choise
-
 # sub
 from re import sub 
 # funcioon  sub('[a-m]', '', s) - permite extraer substrings de un string, o reemplazar valores por otros
@@ -678,7 +696,7 @@ from re import sub
 m = 'aaaxbbbbyyhwawiwjjjwwm'
 # Example:
 k = sub("[a-m]",'',m)
-print (k)
+""" print (k) """
 #    output => 'xyywwwww'
 
 stringt = 'The quick brown fox jumps over the lazy dog'
@@ -687,3 +705,13 @@ stringt = 'The quick brown fox jumps over the lazy dog'
 
 stars = '*'
 """ print(stars.center(3)) """
+
+# random
+import random
+# método random
+# método choise
+
+
+#Functools -para usar reduce
+
+#more itertools
