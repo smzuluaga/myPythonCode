@@ -146,6 +146,7 @@ print(array[-4:-2])
 
 #Enumerate - convierte a un numero en iterable y devuelve una lista de tuplas, separando el numero entregado en digitos y si indice  => (1,2) => 1. indice / 2. digito del numero. para pasar un numero como parametro, debemos convertirlo a string para que sea iterable
 number = 8948758
+
 """ print (list(enumerate(str(number)))) """
 #   output => [(0, '8'), (1, '9'), (2, '4'), (3, '8'), (4, '7'), (5, '5'), (6, '8')]
 
@@ -173,6 +174,22 @@ desordered_num = [20,45,2,3,8,4,9,15]
 print (3 in decimal_numbers)
 print (5 in dif_data)
 """
+
+#Entendiendo que las listas son mutables, son suceptibles de sufrir bugs por motivo de la mutabilidad, por ende se recomienda uqe sena clonadas antes de ser usadas. existen varias formas de hacer clonaciones:
+array = [1,2,3,4,5]
+#1. funcion copy.
+new_array = array.copy()
+""" print(id(array))
+print(id(new_array)) """
+#2. pasando el elemento constructor de listas
+new_array2 = list(array)
+""" print(id(array))
+print(id(new_array2)) """
+#3.usando la notacion de slicing sin argumentos
+new_array3 = array[::]
+""" print(id(array))
+print(id(new_array3)) """
+#NOTA = simplemente con asignar la lista a otra variable no es suficiente, puesto que 
 
 #METODOS DE LAS LISTAS // C-R-U-D -> Create - Read - Update - Delete
 
@@ -588,6 +605,11 @@ dict_dates = {name: age for (name,age) in zip (names, ages) if age>25}
 
 #sets - funciones PENDIENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 
+#FUNCIONES - en python las funciones son ciudadanos de primera clase, esto significa que:
+# *Se pueden pasar como argumentos de otras funciones.
+# *Se pueden utilizar en expresiones
+# *Se pueden incluir en varias estructuras de datos (como listas, tuplas, diccionarios, etc.)
+
 
 
 
@@ -715,3 +737,137 @@ import random
 #Functools -para usar reduce
 
 #more itertools
+
+#TIPOS DE ALGORITMOS
+
+#Ennumeracion Exhaustiva - es probar todas las posibles soluciones hasta encontrar la respuetsa
+
+#Aproximacion de soluciones
+""" objetivo = int(input('Escoge un numero: '))
+epsilon = 0.0001
+paso = epsilon**2 
+respuesta = 0.0
+
+while abs(respuesta**2 - objetivo) >= epsilon and respuesta <= objetivo:
+    print(abs(respuesta**2 - objetivo), respuesta)
+    respuesta += paso
+
+if abs(respuesta**2 - objetivo) >= epsilon:
+    print(f'No se encontro la raiz cuadrada {objetivo}')
+else:
+    print(f'La raiz cudrada de {objetivo} es {respuesta}') """
+
+# Busqueda  binaria - es altamente eficiente pues corta el espacio de busqueda en 2 por cada iteracion
+""" objetivo = int(input('Escoge un numero: '))
+epsilon = 0.001
+bajo = 0.0
+alto = max(1.0, objetivo)
+respuesta = (alto + bajo) / 2
+
+while abs(respuesta**2 - objetivo) >= epsilon:
+    print(f'bajo={bajo}, alto={alto}, respuesta={respuesta}')
+    if respuesta**2 < objetivo:
+        bajo = respuesta
+    else:
+        alto = respuesta
+
+    respuesta = (alto + bajo) / 2
+
+print(f'La raiz cuadrada de {objetivo} es {respuesta}') """
+
+#DEBUGIN 
+
+#PRUEBA DE CAJA NEGRA:
+# Se basan en la especificacion de la funcion o el programa.
+# Prueba inputs y valida outputs.
+# Unit testing (pruebaqs unitarias - prueba funcion por funcion) integration testing (cuando vemos que todos ls modulos funcionen entre si)
+
+#lo primero es importar el modulo unit test para hacer pruebas
+import unittest 
+
+""" class CajaNegraTest(unittest.TestCase):
+
+import unittest
+
+
+def suma(num_1, num_2):
+    return abs(num_1) + num_2
+
+
+class CajaNegraTest(unittest.TestCase):
+
+    def test_suma_dos_positivos(self):
+        num_1 = 10
+        num_2 = 5
+
+        resultado = suma(num_1, num_2)
+
+        self.assertEqual(resultado, 15)
+
+    def test_suma_dos_negativos(self):
+        num_1 = -10
+        num_2 = -7
+
+        resultado = suma(num_1, num_2)
+
+        self.assertEqual(resultado, -17)
+
+
+if __name__ == '__main__':
+    unittest.main() """
+
+#PRUEBA DE CAJA DE CRISTAL:
+# Se basa en el flujo del programa.
+# Prueba todos los caminos posibles de una funcion. 
+# Ramificaciones, blucles for /while, recursiones.
+# sirven para hacer regression testing, es decir despues de que el programa ya este en produccion.
+
+
+""" def es_mayor_de_edad(edad):
+    if edad >= 18:
+        return False
+    else:
+        return False
+
+
+class PruebaDeCristalTest(unittest.TestCase):
+
+    def test_es_mayor_de_edad(self):
+        edad = 20
+
+        resultado = es_mayor_de_edad(edad)
+
+        self.assertEqual(resultado, True)
+
+    def test_es_menor_de_edad(self):
+        edad = 15
+
+        resultado = es_mayor_de_edad(edad)
+
+        self.assertEqual(resultado, False)
+
+
+if __name__ == '__main__':
+    unittest.main() """
+
+# MENEJO DE EXEPCIONES
+
+# Try - Except - Finally
+# se puede utilizar para ramificar los programas, para manejar execpciones. no deben manejarse de manera silenciosa
+
+""" def divide_elementos_de_lista(lista, divisor):
+    try:
+        return [i / divisor for i in lista]
+    except ZeroDivisionError as e:
+        print(e)
+        return lista
+
+
+lista = list(range(10))
+divisor = 0
+
+print(divide_elementos_de_lista(lista, divisor)) """
+
+#AFIRMACIONES 
+#utiliza esta palabra reservada 'assert'
+# puede utilizarse para programacion defensiva, puede utilizarse para verificar que los tipos sean correctos en una funcion y tambien sirve para debugear
