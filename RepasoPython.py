@@ -100,7 +100,8 @@ print(string.endswith('S')) - validar si una cadena finaliza con un caracter o c
 print(string.startswith('hola'))  - validar si una cadena inicia con un caracter o cadena de caracteres, devuelve un valor booleano.
 print(string.replace('a', '*',3)) - str.replace(arg1, arg2, arg3) // reemplaza los valores del argumento 1, por los valores indicados en el argumento 2. El argumento 3 es opcional, sin embargo, con este se puede indicar cuantas veces queremos hacer dicho reemplazo, si no se indica este argumento, por default el sistema reemplaza todas las coincidencias del argumento 1.
 print(string.capitalize()) - convierte la primera letra del string en mayuscula.
-print(string.title()) - convierte la primera letra de cada palabra del string en mayuscula, ejm para nombres propios.
+print(string.title()) - convierte la primera letra de 
+ palabra del string en mayuscula, ejm para nombres propios.
 print(string.isdigit()) - permite validar si un caracter es un digito, devuelve un booleano True para valores entre 0-9 y/o sus combinaciones.
 print(number.isdigit()) -ESTO ES UN ERROR, es un método solo para strings
 print('*****'*5)
