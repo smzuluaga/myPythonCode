@@ -606,14 +606,17 @@ dict_dates = {name: age for (name,age) in zip (names, ages) if age>25}
 
 #sets - funciones PENDIENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 
+
 #FUNCIONES - en python las funciones son ciudadanos de primera clase, esto significa que:
 # *Se pueden pasar como argumentos de otras funciones.
 # *Se pueden utilizar en expresiones
 # *Se pueden incluir en varias estructuras de datos (como listas, tuplas, diccionarios, etc.)
 
 
+# DIFERENCIA ENTRE FUNCION Y MÉTODO.
+    # UNA FUNCION - es una piesa de código que se llama por un nombre y puede recibir datos para operarlos por medio de los parámetros y opcionalmente puede retornar un valor de la operacion.
 
-
+    # UN METODO - es un pedazo de codigo llamado por un nombre pero asociado a un objeto. un método es capaz de operar en datos que están contenidos dentro de la clase. además al objeto se le pasa implicitamente el objeto en el que fue llamado, es decir, que todos los inputs no estarán presentes en la lista de parámetros.
 
 # GESTOR DE PAQUETES DE PYTHON - Permite acceder a librerías y frameworks que podemos usar para nuestros proyectos para solucionar ciertos problems en específico.
 # https://pypi.org/ -  SITIO WEB PARA VISUALIZAR LIBRERÍAS Y SUS DOCUMENTACIONES, VERSIONES, ETC
@@ -731,8 +734,9 @@ stars = '*'
 
 # random
 import random
-# método random
-# método choise
+# método random ()
+# método choise ()
+# método randrange()
 
 
 #Functools -para usar reduce
