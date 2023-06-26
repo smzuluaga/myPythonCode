@@ -738,7 +738,8 @@ import random
 # método choise ()
 # método randrange()
 
-
+#datetime
+#date 
 #Functools -para usar reduce
 
 #more itertools
@@ -876,3 +877,35 @@ print(divide_elementos_de_lista(lista, divisor)) """
 #AFIRMACIONES 
 #utiliza esta palabra reservada 'assert'
 # puede utilizarse para programacion defensiva, puede utilizarse para verificar que los tipos sean correctos en una funcion y tambien sirve para debugear
+
+
+# List methods
+#lst.sort() - sorts the list in-place (does not return it – it returns None). This is called a mutator method. Use the function sorted() if you want a copy returned instead.
+#lst.reverse() - reverses the list in-place (again does not return it). Use the function reversed() if you want a copy returned.
+#lst.insert(index, value) - inserts value at the given index shifting elements to the right
+#lst.append(value) - adds the value to the end of the list (does not return it)
+#lst.index(value) - returns the index of the first instance of value
+#lst.remove(value) - removes the first instance of value
+#lst.extend(lst2) - adds the elements of lst2 to the end of lst
+#lst.count(value) - counts the number of instances of value in the list
+#lst.pop(index) - removes and returns the element at the given index (removes and returns the last item if index is not given
+#lst.clear() - empties the list
+
+#Set methods
+#These are equivalent to the set operators discussed in earlier modules
+    #s1.union(s2)
+    #s1.intersection(s2)
+    #s1.difference(s2)
+    #s1.symmetric_difference(s2)
+    #s1.issubset(s2)
+    #s1.issuperset(s2)
+#s1.isdisjoint(s2) - returns if there are no common elements
+#s.add() - adds a single element to the set
+#s.update() - adds multiple elements to the set
+#s.intersection_update() - modifies a set by intersection
+#s.difference_update() - modifies a set by difference
+#s1.symmetric_dfference_update(s2) - modifies a set by symmetric difference
+#s.discard(elem) - removes elem if elem is in the set
+#s.remove(elem) - removes elem if elem is in the set, otherwise it raises an error
+#s.pop() - removes and returns an arbitrary element
+#s.clear() - removes all elements from the set s

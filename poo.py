@@ -34,19 +34,21 @@
 
     # REUTILIZACION / DRY - Dont Repeat Yourself - la reutilizacion es un principio de OOP que promueve la reduccion de duplicados en la programación, puesto que la duplicidad incrementa la dificultad en los cambios y en la evolucion.
 
-# 4 PILARES DE LA POO:
+# 4 PILARES DE LA POO: (APIE -> Abstraction, Polymorphism, Inheritance, Encapsulation)
     #   * Encapsulamiento
-    #   * Abstracción
-    #   * Herencia
+    #   * Abstracción 
+    #   * Herencia 
     #   * Polimorfismo
 
     #ENCAPSULAMIENTO / ENCAPSULACIÓN - hacer que un dato sea inviolable o inalterable cuando se le asigna un modificador de acceso. es la práctica de esconder informacion dentro de una 'caja negra' para que cuando otros desarrolladores trabajen con el codigo no tengan de que preocuparse. no solo los datos pueden ser encapsulados, sino tambien comportamientos.
 
-        #MODIFICADOR DE ACCESO. - determina un nivel de acceso a los datos. 
-            #*Public - Todas las clases, es el más permisivo de todos.
-            #*Protected - puede ser accedido anivel de la clase y los paquetes de la clases y subclases.
+        #MODIFICADOR DE ACCESO. - determina un nivel de acceso a los datos, esto se determina dentro del elemento constructor de la clase.
+            #*Public - Todas las clases, es el más permisivo de todos. los atributos pueden ser usados dentro o fuera de la definicion de clase.
+            #*Protected - puede ser accedido anivel de la clase y los paquetes de la clases y subclases. los atributos no deben ser usados fuera de la definicion de clase a menos que sean usados en una definicion de subclase. (se usa un '_'(single underscore) antes del nombre de la propiedad que queremos hacer privada => Example: self._height = height)
             #*Default - permite el acceso a clases internas y paquetes, en la herencia no podemos ver este atributo.
-            #*Private - Puede ser accedido solo a nivel de clase. (se usa un '__' antes del nombre de la propiedad que queremos hacer privada => Example: self.__height = height)
+            #*Private - Puede ser accedido solo a nivel de clase. (se usa un '__'(double underscore) antes del nombre de la propiedad que queremos hacer privada => Example: self.__height = height). los atributos solo pueden ser leidos o modificados dentro de la definicion de clase, no son visibles fuera de dicha definicion de clase.
+
+        #La forma mas recomendada de establecer getters y setters cuando tenemos un encapsulamiento privado o protegido es con el decorador '@property' para  exponer los atributos privaods como propiedades de manera controlada.
 
     # ABSTRACCION - cuando abstraemos los datos de un objeto y construimos un molde (clase). busca manejar la complejidad escondiendo elementos innecesarios de los objetos. en la abstraccion se identifica que informacion y comportamientos deben ser encapsulados
 
@@ -66,7 +68,9 @@
                 # give the cow some legs
                 super().__init__(4) #En esta linea se esta extendiendo las propiedades de la superclase Animal a la subclase Cow.
 """
-    #POLIMORFISMO - (muchas formas) es cuando tenemos un metodo heredado de una super clase a varias subclases y cada sub-clase, le da el comportamiento que ella necesita. es decir, construit métodos con el mismo nombre, pero con diferente comportamiento. esposiblemente el pilar más poderoso de OOP. esla habilidad de una variable, funcion o objeto de tomar múltiples formas. Example:
+        #HERENCIA MULTIPLE - ocurre cuando una subclase tiene más de una superclase, esto a veces puede causar problemas. en uncaso en el cual ambas superclases tienen un metodo con el mismo nombre, python usa el 'Method Resolution Order (MRO)' para determinar el orden en el que el atributo debe ser buscado, la busqueda ocurre primero en la clase actual,  sino lo encuentra, la busqueda continua en las superclases en orden de profundidad, de izquierda a derecha.
+
+    #POLIMORFISMO - (muchas formas) es cuando tenemos un metodo heredado de una super clase a varias subclases y cada sub-clase, le da el comportamiento que ella necesita. es decir, construit métodos con el mismo nombre, pero con diferente comportamiento. es posiblemente el pilar más poderoso de OOP. esta habilidad de una variable, funcion o objeto de tomar múltiples formas. Example:
 """
         class Creature():
             def move(self):
@@ -84,10 +88,77 @@
             creature.move()
 """
 
+        #FUNCTION SIGNATURE - includes the name, inputs and outputs of a function or method, por ejemplo, el siguiente ejemplo tiene el mismo nombre de funcion, no tiene inputs y retorna un entero, si cualquiera de estas 3 variables es diferente, entonces las funciones tendrian diferentes 'function signatures'
+
+"""         #Same function signature
+                class Human:
+                    def hit_by_fire(self):
+                        self.health -= 5
+                        return self.health
+
+                class Archer:
+                    def hit_by_fire(self):
+                        self.health -= 10
+                        return self.health
+"""
+"""         #Different function signature
+                class Human:
+                    def hit_by_fire(self):
+                        self.health -= 5
+                        return self.health
+
+                class Archer:
+                    def hit_by_fire(self, dmg):
+                        self.health -= dmg
+                        return self.health
+"""
+        # En el polimorfismo, cuando se anulan metodos se debe usar la misma 'function signature', si esta se cambia en la superclase podria ser un desastre.
+
+        # SOBRECARGA DE OPERADORES - los operadores aritmeticos funcionan para tipos integrados como enteros y cadenas, sin embargo, las clases personalizadas no tienen nigun soporte integrado para esos operadores, sin embargo podemos agregar nuestro propio apoyo con los operadores '__add__' o el que corresponda;
+            # '+'   => __add__
+            # '-'   => __sub__
+            # '*'   => __mul__
+            # '**'  => __pow__
+            # '/'   => __truediv__
+            # '//'  => __floordiv__
+            # '%'   => __mod__
+            # '<<'  => __lshift__
+            # '>>'  => __rshift__
+            # '&'   => __and__
+            # '|'   => __or__
+            # '^'   => __xor__
+            # '~'   => __invert__ (negacion)
+
+        #INSTANCIA PARA IMPRIMIR EL OBJETO.
+        # método '__repr__'. example:
+""" 
+            class Point:
+                def __init__(self, x, y):
+                    self.x = x
+                    self.y = y
+
+                def __repr__(self):
+                    return f"({self.x},{self.y})"
+
+            p1 = Point(4, 5)
+            print(p1)
+            # prints "(4,5)"
+"""
 
 # OBJETOS - son instancias de las clases, es decir, ES el resultado del modelado que creamos como clase a partir de la abstraccion de un objeto y con los objetos ya le damos vida a las clases.
 
 # INSTANCIA DE LAS VARIABLES DE OBJETOS vs. INSTANCIA DE LAS VARIABLES DE LAS CLASES -  La instancia de las variables varian entre objeto y objeto, y a pesar de que sean declaradas en el metodo constructor con un valor, una vez instaciada la clase en un nuevo objeto, dicho valor puede ser cambiado. sin embargo, cuando  cambiamos un valor de una variable a nivel clase, se cambia en todas los objetos donde esta ha sido instanciada, hay que tener mucho cuidado con el uso de esta ultima.
+
+    # Los atributos de una clase pueden ser atributos de clase o atributos de instancia. los atributos de instancia se pasan por el metodo constructor y harán parte de cada instancia, los attributos de clase, por default serán compartidos a todas las instancias de la clase, pero no pueden ser modificados en cada instancia. Example:
+"""
+        class Person:
+        count = 0  # class attribute
+        
+        def __init__(self, name, age):
+            self.name = name      # instance attribute
+            self.age = age        # instance attribute
+            Person.count += 1 # So in this case, Person.count acts as a 'global' counter that keeps track of how many instances of Person has been created.
+"""
 
 # LENGUAJES QUE USAN POO:
     #   * Python - JavaScript / Java / Php / C++ / C# / Ruby / Kotlin / etc.
@@ -149,7 +220,7 @@
 """     * Python => 
                         class Person:
                             name = '' #Atributos.(Estado)
-                            def Walk (self): #Métodos. (Comportamientos)
+                            def Walk (self): #Métodos. (Comportamientos) - siempre el primer argumento debe ser self.
     """ 
      
 """     * JavaScript => 
@@ -174,7 +245,7 @@
     # Pyhon usa el metodo:  ' __init__() ' que se llama automáticamente cuando un nuevo objeto es creado.
 
 """    * PYTHON => 
-                def _init_(self,name):
+                def __init__(self,name): # Método Constructor # Double underscore en ambos lados indica que es una funcion especial de Py.
                     self.name = name 
                     self.__height = height # Encapsulamiento (Private)
 """
@@ -196,7 +267,7 @@
     # Declaracion de la clase.
 """    class Soldier:
             
-            def __init__(self, armor, num_weapons): # Método Constructor
+            def __init__(self, armor, num_weapons): 
                 self.armor = armor
                 self.num_weapons = num_weapons 
 
@@ -210,11 +281,21 @@
             #Output => prints "3"
 """
 
+    #METODOS DE CLASE:
+    # Al igual que los atributos de la clase, las clases tambien pueden tener metodos propios de la clase, que no pertenezcan propiamente a la instancia, en este caso, dichos atributos y metodos de la clase, no tienen acceso a la instancia del objeto, sino solo a la clase.  El primer argumento de la funcion no sería 'self' sino 'cls', adicional, debe usar el decorador '@classmethod'
+
+    #METODOS ESPECIALES:
+        # __str__() -  se usa para imprimr, de hecho, str() invoca a __str__()
+        # __add__(), __sub__(), __mul__(), __truediv__(), __pow__() - se usa para sobrecargar los operadores aritmeticos.
+        # __lt__(), __le__(), __gt__(), __ge__(), __eq__(), __ne__() (<, <=, >, >=, ==, !=) -> se usa para sobrecargar los operadores booleanos. 
+        # __len__() (len(x) invokes x.__len__())
+        # __contains__() (item in x invokes x.__contains__(item))
+        # __getitem__() (x[key] invokes x.__getitem__(key))
+        # __setitem__() (x[key] = item invokes x.__setitem__(key, item))
+        # __iter__() is used to allow the type to be used in for loops
 
 
-
-
-
+#_____________________________________________________________
 
 # 3. PROGRAMAR LOS PASOS ANTERIORES (PHP & JAVA)
 
@@ -241,7 +322,6 @@
 
 # METODO CONSTRUCTOR -  da un estado inicial a cada objeto // tiene el mismo nombre de la clase // los argumentos que le pasamos al metodo constructor cuando estamos dando vida a una nueva instancia de la clase, son los parámetros mínimos que necesita el objeto para que pueda vivir. esto significa que estamos instanciando e inicializando el objeto en la misma linea.
 
-"
 
 """    * JAVA - public Person(String name) {
                         this.name = name;
