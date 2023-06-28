@@ -1,5 +1,5 @@
 # PARADIGMAS DE LA PROGRAMACION:
-# Paradigma = Teoria que suministra la base y modelo para resolver problemas.
+# Paradigma = Teoria que suministra la base y modelo para resolver problemas. modelo básico de diseño y desarrollo de programas.
     #   * Programacion Funcional (paradigma de la programacion declarativa - está basado en funciones (ciudadanas de primera clase) y prioriza el uso de la recursividad y HOF)
     #   * Programacion Estructurada (Secuencial - basado en las 3 estructuras de control básicas Secuencia, Condicionales, Ciclos)
     #   * PROGRAMACION ORIENTADA A OBJETOS - POO/ OOP
@@ -24,12 +24,12 @@
     #   * Objetos
 
 
-# CLASES - es un modelo sobre el cual se construirá el objeto. parte del análisis de un objeto en su forma más general, de esta manera, podremos crear muchos  objetos a partir de dicha clase, con sus respectivos atributos y métodos. posteriormente, luego de definida la clase, podemos crear instancia de dicha clase con los objetos.
+# CLASES - es un modelo sobre el cual se construirá el objeto. parte del análisis de un objeto en su forma más general, de esta manera, podremos crear muchos objetos a partir de dicha clase, con sus respectivos atributos y métodos. posteriormente, luego de definida la clase, podemos crear instancia de dicha clase con los objetos.
 
     # MODULARIDAD - esta muy relacionado con las clases, y es uno de los principios de OOP. Diseño modular es subdividir el sistema en partes más pequeñas (módulos), los cuales pueden funcionar de manera independiente pero en pro del sistema.
     # ayuda que cuando hay un error, solo se afecte el módulo, más no todo el sistema, como es el caso de la programación estructurada.
     # permite reutilizar código, evitar colapsos, hacer un código más mantenible, legibilidad, y resolución rápida de problemas.
-    # en ese orden de ideas, la clases provocan la modularidar las diferentes partes de un objeto y de esta forma goza de las ventajas de la  modularizacion.
+    # en ese orden de ideas, la clases provocan la modularidar en las diferentes partes de un objeto y de esta forma goza de las ventajas de la  modularizacion.
     # las clases deben estar en archivos separados para generar la modularidad y mantener el código aislado.
 
     # REUTILIZACION / DRY - Dont Repeat Yourself - la reutilizacion es un principio de OOP que promueve la reduccion de duplicados en la programación, puesto que la duplicidad incrementa la dificultad en los cambios y en la evolucion.
@@ -48,7 +48,77 @@
             #*Default - permite el acceso a clases internas y paquetes, en la herencia no podemos ver este atributo.
             #*Private - Puede ser accedido solo a nivel de clase. (se usa un '__'(double underscore) antes del nombre de la propiedad que queremos hacer privada => Example: self.__height = height). los atributos solo pueden ser leidos o modificados dentro de la definicion de clase, no son visibles fuera de dicha definicion de clase.
 
-        #La forma mas recomendada de establecer getters y setters cuando tenemos un encapsulamiento privado o protegido es con el decorador '@property' para  exponer los atributos privaods como propiedades de manera controlada.
+        #La forma mas recomendada de establecer getters, setters y deleters cuando tenemos un encapsulamiento privado o protegido es con el objeto property que tiene 3 metodos, fget = getter(), fset= setter() and fdel =deleter(). Existen 2 formas de usar este objeto dentro de las clases: 1.usando objeto = property (argumentos) // 2. usando decorador '@property' para  exponer los atributos privaods como propiedades de manera controlada. los objetos property 
+"""
+            class Empleado:
+                def __init__(self,nombre,salario):
+                    self.__nombre = nombre
+                    self.__salario = salario
+
+                def __getnombre(self):
+                    return self.__nombre
+                def __getsalario(self):
+                    return self.__salario
+                
+
+                def __setnombre(self, nombre):
+                    self.__nombre = nombre
+                def __setsalario(self, salario):
+                    self.__salario = salario
+
+                def __delnombre(self):
+                    del self.__nombre
+                def __delsalario(self):
+                    del self.__salario
+
+                nombre = property(fget= __getnombre, #en esta parte se está creando el objeto property con la forma 1, para que los atributos y metodos encapsulados como privados queden con acceso publico
+                                fset= __setnombre,
+                                fdel= __delnombre
+                                )
+                
+                salario = property(fget = __getsalario)
+
+            empleado = Empleado('Camilo', 3000)
+
+            print (empleado.nombre)
+"""
+"""
+            class Animal:
+                def __init__(self, nombre, edad):
+                    self.__nombre = nombre
+                    self.edad = edad
+                
+                def getname (self):
+                    return self.__nombre
+                
+                @property # esta es la forma 2 de utilizar el objeto property con el decorador, la funcion es la misma.
+                def nombre(self):
+                    return self.__nombre
+
+                @nombre.setter
+                def nombre(self, nombre):
+                    self.__nombre = nombre
+
+                @nombre.deleter
+                def nombre(self):
+                    del self.__nombre 
+"""
+        #cuando un atributo esta encapsulado como provado, se puede acceder a el de dos formas: 1. creando un metodo que imprima dicho atributo y despues llamar ese metodo una vez instanciado el bojeto. // 2. usar objeto._Propiedad__atributo => esta forma sirve tanto para atributos como para métodos encapsulados.
+"""
+            class Cliente:
+                def __init__(self):
+                    self.__codigo = 4321
+
+                def __cuenta(self):
+                    print ('cuenta de procesamiento')
+                
+                def get_code(self): #Forma 1 de acceder a un atributo encapsulado como privado.
+                    return self.__codigo
+                
+            c = Cliente()
+            c._Cliente__cuenta() # Forma 2 de acceder a un atributo o a un método, encapsulado como privado.
+"""
+    
 
     # ABSTRACCION - cuando abstraemos los datos de un objeto y construimos un molde (clase). busca manejar la complejidad escondiendo elementos innecesarios de los objetos. en la abstraccion se identifica que informacion y comportamientos deben ser encapsulados
 
@@ -62,15 +132,73 @@
             def __init__(self, num_legs):
                 self.num_legs = num_legs
 
+            def sound(self):
+                print('moooo')
+
         class Cow(Animal):
-            def __init__(self):
+            def __init__(self, num_legs):
                 # call the parent constructor to
                 # give the cow some legs
-                super().__init__(4) #En esta linea se esta extendiendo las propiedades de la superclase Animal a la subclase Cow.
+                super().__init__(,num_legs) #En esta linea se esta extendiendo las propiedades de la superclase Animal a la subclase Cow.
+            
+            def sound(self):
+                super().sound() #si se desea traer algun comportamiento del metodo determinado en la superclase, se debe traer de esta forma y complementar dicho comportamiento como se requiera.
+                print('moo moo')
 """
-        #HERENCIA MULTIPLE - ocurre cuando una subclase tiene más de una superclase, esto a veces puede causar problemas. en uncaso en el cual ambas superclases tienen un metodo con el mismo nombre, python usa el 'Method Resolution Order (MRO)' para determinar el orden en el que el atributo debe ser buscado, la busqueda ocurre primero en la clase actual,  sino lo encuentra, la busqueda continua en las superclases en orden de profundidad, de izquierda a derecha.
+        #HERENCIA MULTINIVEL - en Py la herencia puede tener la profundidad que se desee, a pesar de que no es lo más recomendado. en este contexto una una subclase1 puede heredar de una superclase y a su vez una subclase2, puede heredar de la subclase1 y de esta forma acceder a los métodos y atributos de la superclase y la subclase1. Example:
 
-    #POLIMORFISMO - (muchas formas) es cuando tenemos un metodo heredado de una super clase a varias subclases y cada sub-clase, le da el comportamiento que ella necesita. es decir, construit métodos con el mismo nombre, pero con diferente comportamiento. es posiblemente el pilar más poderoso de OOP. esta habilidad de una variable, funcion o objeto de tomar múltiples formas. Example:
+"""            class SuperClass:
+                    # Super class code here
+
+                class DerivedClass1(SuperClass):
+                    # Derived class 1 code here
+
+                class DerivedClass2(DerivedClass1):
+                    # Derived class 2 code here
+"""
+        #HERENCIA MULTIPLE - ocurre cuando una subclase tiene más de una superclase, esto a veces puede causar problemas. en un caso en el cual ambas superclases tienen un metodo con el mismo nombre, python usa el 'Method Resolution Order (MRO)' para determinar el orden en el que el atributo debe ser buscado, la busqueda ocurre primero en la clase actual,  sino lo encuentra, la busqueda continua en las superclases en orden de profundidad, de izquierda a derecha. Example:
+
+"""
+                class SuperClass1:
+                    def info(self):
+                        print("Super Class 1 method called")
+
+                class SuperClass2:
+                    def info(self):
+                        print("Super Class 2 method called")
+
+                class Derived(SuperClass1, SuperClass2):
+                    pass
+                    
+                d1 = Derived()
+                d1.info()     
+                #Output => "Super Class 1 method called"
+"""
+"""
+                class Drink:
+                    def __init__(self,name):
+                        self.name = name
+
+                class Profits:
+                    def __init__(self, price):
+                        self.price = price
+                    
+                class Beer(Drink, Profits):
+                    def __init__(self, name, price):
+                        Drink.__init__(self,name)  #cuando tenemos dos padres o más, no se llama la herencia con super().__init__(), sino con el nomnbre de la superclase.__init__(self,argumentos)
+                        Profits.__init__(self, price)
+
+                    def getInfo(self):
+                        return f'this is an{self.name} beer and it costs {self.price}'
+
+                b = Beer('Aguila', 2000)
+                print (b.getInfo())
+                # Output => 'this is anAguila beer and it costs 2000'
+"""
+
+    #POLIMORFISMO - (muchas formas) es cuando tenemos un metodo heredado de una super clase a varias subclases y cada sub-clase, le da el comportamiento que ella necesita. es decir, construir métodos con el mismo nombre, pero con diferente comportamiento. es posiblemente el pilar más poderoso de OOP. esta habilidad de una variable, funcion o objeto de tomar múltiples formas. Example:
+
+        #POLIMORFISMO POR HERENCIA - es definir un metodo en una superclase y modificar su comportamiento en cada subclase.
 """
         class Creature():
             def move(self):
@@ -86,8 +214,33 @@
 
         for creature in [Creature(), Dragon(), Kraken()]:
             creature.move()
-"""
+""" 
 
+        #POLIMORFISMO POR FUNCION - son funciones que se definen fuera de la clase y reciben como parámetro un objeto que esta instanciandoa  una clase, de esta forma, esta funcion trabajará con los atributos que el objeto heredó por clase para ejecutar alguna accion.
+
+        #POLIMORFISMO CON MÉTODOS - es más efectivo cundo tenemos más de dos clases, se puede usar con un iterador para hacer alguna accion en cada accion.
+"""
+            class Colombia:
+                def capital(self):
+                    print ('Bogotá')
+                
+                def idioma(self):
+                    print ('español')
+
+            class Francia:
+                def capital(self):
+                    print ('Francia')
+                
+                def idioma(self):
+                    print ('frances')
+
+            colombiano = Colombia()
+            frances = Francia()
+
+            for pais in (colombiano, frances):
+                pais.capital()
+                pais.idioma()
+"""
         #FUNCTION SIGNATURE - includes the name, inputs and outputs of a function or method, por ejemplo, el siguiente ejemplo tiene el mismo nombre de funcion, no tiene inputs y retorna un entero, si cualquiera de estas 3 variables es diferente, entonces las funciones tendrian diferentes 'function signatures'
 
 """         #Same function signature
@@ -130,7 +283,7 @@
             # '~'   => __invert__ (negacion)
 
         #INSTANCIA PARA IMPRIMIR EL OBJETO.
-        # método '__repr__'. example:
+        # método '__repr__' o  médoto '__str__' example:
 """ 
             class Point:
                 def __init__(self, x, y):
@@ -145,7 +298,7 @@
             # prints "(4,5)"
 """
 
-# OBJETOS - son instancias de las clases, es decir, ES el resultado del modelado que creamos como clase a partir de la abstraccion de un objeto y con los objetos ya le damos vida a las clases.
+# OBJETOS - son instancias de las clases, es decir, Es el resultado del modelado que creamos como clase a partir de la abstraccion de un objeto y con los objetos ya le damos vida a las clases.
 
 # INSTANCIA DE LAS VARIABLES DE OBJETOS vs. INSTANCIA DE LAS VARIABLES DE LAS CLASES -  La instancia de las variables varian entre objeto y objeto, y a pesar de que sean declaradas en el metodo constructor con un valor, una vez instaciada la clase en un nuevo objeto, dicho valor puede ser cambiado. sin embargo, cuando  cambiamos un valor de una variable a nivel clase, se cambia en todas los objetos donde esta ha sido instanciada, hay que tener mucho cuidado con el uso de esta ultima.
 
@@ -184,7 +337,7 @@
     # OMT - Object Modeling Techniques - metodología para el análisis orientado a objetos.
     # luego del análisis identificar y nombrar los objetos, se debe crear cada objeto en un recuadro y plasmar sus atributos y métodos y posteriormente, establecer una relación entre los objetos. (esta en desuso) es un antecesor de UML.
 
-    # UML - Unified Modeling Languge - Lenguaje de modelado unificado. es una version mejorada de OMT. acá podemos modelar clases, bojetos, casos de uso, actividades, iteraciones, estados, implementacion.
+    # UML - Unified Modeling Languge - Lenguaje de modelado unificado. es una version mejorada de OMT. acá podemos modelar clases, objetos, casos de uso, actividades, iteraciones, estados, implementacion.
 
     # GRAFICAR UNA CLASE EN UML - através de este proceso, le asignamos a las clases una identidad (nombre de la clase), estado (atributos) y comportamientos (métodos), ver anexo1 para visualizar la imágen en UML.
 
@@ -198,7 +351,7 @@
 
             # Asociacion (→) : cada vez que esté referenciada este tipo de flecha significará que ese elemento contiene al otro en su definición. La flecha apuntará hacia la dependencia.
             # Example:
-            #    A  → B (Indica que la clase A esta asociada y depende de la claseB)
+            #    A  → B (Indica que la clase A esta asociada y depende de la clase B)
 
             # Herencia (🠚) : estará expresando la herencia. La dirección de la flecha irá desde el hijo hasta el padre.
             # Example:
@@ -284,6 +437,8 @@
     #METODOS DE CLASE:
     # Al igual que los atributos de la clase, las clases tambien pueden tener metodos propios de la clase, que no pertenezcan propiamente a la instancia, en este caso, dichos atributos y metodos de la clase, no tienen acceso a la instancia del objeto, sino solo a la clase.  El primer argumento de la funcion no sería 'self' sino 'cls', adicional, debe usar el decorador '@classmethod'
 
+    # @staticmethod - es un tipo de método que funciona de forma independiente, y no usa los atributos internos de la clase o instancia para funcionar, es decir puede recibir parámetros externos.
+
     #METODOS ESPECIALES:
         # __str__() -  se usa para imprimr, de hecho, str() invoca a __str__()
         # __add__(), __sub__(), __mul__(), __truediv__(), __pow__() - se usa para sobrecargar los operadores aritmeticos.
@@ -294,6 +449,85 @@
         # __setitem__() (x[key] = item invokes x.__setitem__(key, item))
         # __iter__() is used to allow the type to be used in for loops
 
+
+    # METODOS UTILES:
+
+        # método getattr(objeto, 'atributo') => es una forma de llamar a un atributo de un objeto con una notacion diferente al punto, devuelve el valor del atributo pasado como parámetro.
+        #        _______ ______  ________
+        #           1       2       3     =>  1. metodo getattr() // 2. objeto del que se desea llamar el atributo // 3. nombre del atributo del cual se desea obtener el valor 'entre_comillas' 
+        # Example = 
+"""
+            class Persona2:
+                marca = 'nunguna'
+                color = 'rojo'
+
+            p = Persona2()
+            print (getattr(Persona2, 'color'))
+            #Output => 'rojo'
+"""
+
+        #método hasattr(objeto, 'atributo') => retorna un valor booleano para saber si un objeto tiene un atributo en especifico.
+        #        _______ ______  ________
+        #           1       2       3     =>  1. metodo hasattr() // 2. objeto del que se desea consultar la existencia del atributo // 3. nombre del atributo del cual se desea obtener el boleano se si existe o no
+        # Example:
+"""
+            class Persona2:
+                marca = 'nunguna'
+                color = 'rojo'
+
+            p = Persona2()
+            print(hasattr(p, 'size'))
+            #   Output => False
+            print(hasattr(p, 'color'))
+            #   Output => True
+"""
+        #método setattr(objeto, 'atributo', 'nuevo valor atributo' ) => permite modificar el valor de un atributo.
+        #        _______ ______  ________   ______________________
+        #           1       2       3               4               =>  1. metodo setattr() // 2. objeto del que se desea cambiar el atributo // 3. nombre del atributo cuyo valor se desea cambiar // 4. nuevo valor que queremos dar al atributo indicado.
+        # Example:
+"""
+            class Persona2:
+                marca = 'nunguna'
+                color = 'rojo'
+
+            p = Persona2()
+            setattr(p, 'color', 'verde')
+            print (p.color)
+            # Output => 'verde'
+"""
+        #método delattr(Clase, 'atributo' => permite eliminar un atributo de una clase.
+        #       _______ ______  ________   ______________________
+        #           1       2       3               4               =>  1. metodo deltattr() // 2. clase de la cual se desea eliminar el atributo // 3. nombre del atributo que se desea utilizar
+        # Example:
+""" 
+            class Persona2:
+                marca = 'nunguna'
+                color = 'rojo'
+
+            p = Persona2()
+            print (p.marca) # Output => 'nunguna'
+            delattr(Persona2, 'marca')
+            print (p.marca) # Output => 'Persona2' object has no attribute 'marca'
+            # Output => 'verde'
+ """
+
+        #método isinstance(objeto, clase) => devuelve un valor booleano de si un objeto es una instancia de x clase
+        #       __________ ______  _____    
+        #           1         2      3   => 1. método isinstance / 2. objeto que queremos evaluar // 3.clase de la cualq ueremos identificasr si el objeto anterior es instancia.
+"""
+            class Persona2:
+                marca = 'nunguna'
+                color = 'rojo'
+            p = Persona2()
+            print (isinstance(p, Persona2))
+            # Output => True
+"""
+        #método issubclass(subclase, clase) => devuelve un valor booleano de si un una clase es subclase de x clase
+
+        # método __del__(self) => ayuda a eliminiar los elementos basura que ya no se usan com clases y subclases
+
+        # método dir(objeto) = >nos petmite saber le listado de métodos de un objeto, al que podemos acceder luego de instanciar una clase con dicho objeto.
+        # print(dir(p))
 
 #_____________________________________________________________
 

@@ -17,14 +17,26 @@ print (bool((not False))) """
 #funcion type()
 # print(type(4.3))
 
-#Template Strings Forma 1
-""" nombre = 'Santiago'
-apellido = 'Zuluaga'
-print ('Hola {} {}, eres Bienvenido'.format (nombre,apellido))
- """
-#Template String Forma 2
-""" hola = input("Esbriba su nombre ")
-print (f'Hola {hola}, Bienvenido')  """
+#STRING FORMATS
+
+    #Template Strings Forma 1 (String Format)
+""" 
+        nombre = 'Santiago'
+        apellido = 'Zuluaga'
+        print ('Hola {} {}, eres Bienvenido'.format (nombre,apellido))
+"""
+    #Template String Forma 2
+""" 
+        hola = input("Esbriba su nombre ")
+        print (f'Hola {hola}, Bienvenido')  
+"""
+    #Templata String Forma 3
+"""
+        nombre = 'Santiago'
+        apellido = 'Zuluaga'
+        print('Hola, % s % s eres Bienvenido'%(nombre,apellido))
+"""
+   
 
 #Tipos de datos
 #Primitivos (inmutables) - TAMBIEN SE DENOMINAN OBJETOS LITERALES
