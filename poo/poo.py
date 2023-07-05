@@ -44,7 +44,7 @@
 
         #MODIFICADOR DE ACCESO. - determina un nivel de acceso a los datos, esto se determina dentro del elemento constructor de la clase.
             #*Public - Todas las clases, es el más permisivo de todos. los atributos pueden ser usados dentro o fuera de la definicion de clase.
-            #*Protected - puede ser accedido anivel de la clase y los paquetes de la clases y subclases. los atributos no deben ser usados fuera de la definicion de clase a menos que sean usados en una definicion de subclase. (se usa un '_'(single underscore) antes del nombre de la propiedad que queremos hacer privada => Example: self._height = height)
+            #*Protected - puede ser accedido anivel de la clase y los paquetes de la clases y subclases. los atributos no deben ser usados fuera de la definicion de clase a menos que sean usados en una definicion de subclase. (se usa un '_'(single underscore) antes del nombre de la propiedad que queremos hacer protegida => Example: self._height = height)
             #*Default - permite el acceso a clases internas y paquetes, en la herencia no podemos ver este atributo.
             #*Private - Puede ser accedido solo a nivel de clase. (se usa un '__'(double underscore) antes del nombre de la propiedad que queremos hacer privada => Example: self.__height = height). los atributos solo pueden ser leidos o modificados dentro de la definicion de clase, no son visibles fuera de dicha definicion de clase.
 
@@ -145,7 +145,7 @@
                 super().sound() #si se desea traer algun comportamiento del metodo determinado en la superclase, se debe traer de esta forma y complementar dicho comportamiento como se requiera.
                 print('moo moo')
 """
-        #HERENCIA MULTINIVEL - en Py la herencia puede tener la profundidad que se desee, a pesar de que no es lo más recomendado. en este contexto una una subclase1 puede heredar de una superclase y a su vez una subclase2, puede heredar de la subclase1 y de esta forma acceder a los métodos y atributos de la superclase y la subclase1. Example:
+        #HERENCIA MULTINIVEL - en Py la herencia puede tener la profundidad que se desee, a pesar de que no es lo más recomendado. en este contexto una una subclase1 puede heredar de una superclase y a su vez una subclase, puede heredar de la subclase1 y de esta forma acceder a los métodos y atributos de la superclase y la subclase1. Example:
 
 """            class SuperClass:
                     # Super class code here
@@ -217,6 +217,11 @@
 """ 
 
         #POLIMORFISMO POR FUNCION - son funciones que se definen fuera de la clase y reciben como parámetro un objeto que esta instanciandoa  una clase, de esta forma, esta funcion trabajará con los atributos que el objeto heredó por clase para ejecutar alguna accion.
+"""         
+            # OBjeto será una instancia de X class que tendrá las propiedades name y clase para poder ser usado de esta forma
+            def funcion (objeto): 
+                return f'Hello I am {objeto.name} and I am a {objeto.clase}'
+"""       
 
         #POLIMORFISMO CON MÉTODOS - es más efectivo cundo tenemos más de dos clases, se puede usar con un iterador para hacer alguna accion en cada accion.
 """
@@ -281,7 +286,14 @@
             # '|'   => __or__
             # '^'   => __xor__
             # '~'   => __invert__ (negacion)
-
+'''               exaplme: self.num1 = 2  / self.num2 = 3
+                           def __add__(self, other):
+                                print( self.num1 + other.num1)
+                            # Output => 5
+                           def __mul__(self, other):
+                                print(self.num1 * other.num1)
+                            # Output => 6
+'''
         #INSTANCIA PARA IMPRIMIR EL OBJETO.
         # método '__repr__' o  médoto '__str__' example:
 """ 
@@ -300,9 +312,15 @@
 
 # OBJETOS - son instancias de las clases, es decir, Es el resultado del modelado que creamos como clase a partir de la abstraccion de un objeto y con los objetos ya le damos vida a las clases.
 
-# INSTANCIA DE LAS VARIABLES DE OBJETOS vs. INSTANCIA DE LAS VARIABLES DE LAS CLASES -  La instancia de las variables varian entre objeto y objeto, y a pesar de que sean declaradas en el metodo constructor con un valor, una vez instaciada la clase en un nuevo objeto, dicho valor puede ser cambiado. sin embargo, cuando  cambiamos un valor de una variable a nivel clase, se cambia en todas los objetos donde esta ha sido instanciada, hay que tener mucho cuidado con el uso de esta ultima.
+#  LAS VARIABLES DE INSTANCIA DEL OBJETOS vs. LAS VARIABLES DE LAS CLASES DEL OBJETO -  las variables de instancia son las que se declaran dentro del método constructor y las variables de clase son las que se declaran fueera del mismo. las variables de isntancia varian entre objeto y objeto, y a pesar de que pueden ser declaradas en el metodo constructor con un valor por defecto, una vez instaciada la clase en un nuevo objeto, dicho valor puede ser cambiado y no va a afectar a las demás instancias. sin embargo, cuando creamos una variable de clase y le damos un valor, si cambiamos dicho valor, cambiamos un valor de una variable a nivel clase, es decir se cambia en todas los objetos donde esta ha sido instanciada, hay que tener mucho cuidado con el uso de esta ultima.
 
-    # Los atributos de una clase pueden ser atributos de clase o atributos de instancia. los atributos de instancia se pasan por el metodo constructor y harán parte de cada instancia, los attributos de clase, por default serán compartidos a todas las instancias de la clase, pero no pueden ser modificados en cada instancia. Example:
+    # Los atributos de una clase tambien pueden ser atributos de clase o atributos de instancia. los atributos de instancia se pasan posterior al metodo constructor y como primer argumento reciben el argumento (self) y harán parte de cada instancia y pueden operar los attributos de la instancia, como los de clase.  
+    
+    # Los métodos de clase, son aquellos que llevan previamente el decorador @classmethod y reciben como primer argumento (cls) y no se heredan a  las instancias de la clase, pero pueden ser usadas por las mismas llamandolo desde la clase. Estos no pueden ser modificados en cada instancia con la aplicacion del polimorfismo, además no requieren de un instanciamiento de la clase para ser usados, pues simplemente pueden ser llamados directamente desde la misma (ejemplo Clase.classmethod(cls)). tampoco pueden usar los atributos de las instancias, solo podran usar atributos de clase o aquellos que se le pasen como parámetros.
+
+    # los métodos estáticos son aquellos que usan el decorador @staticmethod, son aquellos que no requieren de una instancia para ser llamados, sin embargo, son ambiguos, pueden ser llamados desde la clase o desde la instancia. ahora, estos, al igual que los métodos de clase, no pueden operar los atributos de la instancia, unicamente pueden operar atributos de clase, llamados desde laclase o atributos pasados por parámetro.
+
+    # Example:
 """
         class Person:
         count = 0  # class attribute
@@ -311,6 +329,18 @@
             self.name = name      # instance attribute
             self.age = age        # instance attribute
             Person.count += 1 # So in this case, Person.count acts as a 'global' counter that keeps track of how many instances of Person has been created.
+        
+        def hacer_algo(self): #metodo de atributo
+            print (self.name, self.age)
+        
+        @classmethod ## método de clase
+        def metodito_de_la_clase (cls):
+            return cls.count ## puede usar la palabra reservada cls para llamar atributos de clase
+            return Person.count ## puede usar el nombre de la clase para llamar atributos de clase
+
+        @staticmethod
+        def haceralgo (variable):
+            return variable
 """
 
 # LENGUAJES QUE USAN POO:
@@ -330,12 +360,12 @@
     # 1. ANÁLISIS - Observar el problema e identificar los objetos, estos objetos deben ser analizados dentro de un 'CONTEXTO'. estos siempre van a ser SUSTANTIVOS (ejm: un mouse, una manzana, un pc, etc) y van a tener propiedades(atributos) y comportamientos (métodos). los objetos pueden ser físicos (ejm: una persona, una fruta) o conceptuales (no son físicos).
     # los atributos tambien son sustantivos (tamaño, nombre, forma, estado) son características de ese objeto.
     # los comportamientos son verbos o sustantivos y verbos, ya que son las acciones que puede hacer el objeto.
-    # Ejemplo. un usuario es un objeto físico y un inicio de sesión puede ser un objeto conceptual (propiedades: fecha de inicio de sesion, restricciones pra usuario y clave / comportamientos: login, log out, etc).
+    # Ejemplo. un usuario es un objeto físico y un inicio de sesión puede ser un objeto conceptual (propiedades: fecha de inicio de sesion, restricciones pra usuario y clave / comportamientos: login, log out, generar_archivo etc).
 
     # 2. DIAGRAMAS DE MODELADO.
 
     # OMT - Object Modeling Techniques - metodología para el análisis orientado a objetos.
-    # luego del análisis identificar y nombrar los objetos, se debe crear cada objeto en un recuadro y plasmar sus atributos y métodos y posteriormente, establecer una relación entre los objetos. (esta en desuso) es un antecesor de UML.
+    # luego del análisis e identificar y nombrar los objetos, se debe crear cada objeto en un recuadro y plasmar sus atributos y métodos y posteriormente, establecer una relación entre los objetos. (esta en desuso) es un antecesor de UML.
 
     # UML - Unified Modeling Languge - Lenguaje de modelado unificado. es una version mejorada de OMT. acá podemos modelar clases, objetos, casos de uso, actividades, iteraciones, estados, implementacion.
 
@@ -371,31 +401,35 @@
     # DEFINIR UNA CLASE
         # palabra revervada class:
 """     * Python => 
-                        class Person:
-                            name = '' #Atributos.(Estado)
+                        class Person: #identidad
+                            def __init__(self, name): #Atributos.(Estado)
+                                self.name = '' 
+
                             def Walk (self): #Métodos. (Comportamientos) - siempre el primer argumento debe ser self.
+                                pass
     """ 
      
 """     * JavaScript => 
                         class Car {
-                                constructor(license, driver) {
-                                    this.id;
+                                constructor(id, license, driver, passender) {
+                                    this.id = id;
                                     this.license = license;
                                     this.driver = driver;
-                                    this.passenger;
+                                    this.passenger = passenger;
                                 } 
                             }
     """  
 
-        #los metodos de las clases en python siempre deben llevar la como primer argumento la plaabra self para hacer referencia al objeto en si mismo. por lo tanto a través de su uso, podemos leer y actualizar las propiedades del objeto.
+        #los metodos de las clases en python siempre deben llevar como primer argumento la plaabra 'self' para hacer referencia al objeto instanciado en si mismo. por lo tanto a través de su uso, podemos leer y actualizar las propiedades del objeto.
 
         #Para llamar a un metodo de un objeto, basta con usar el nombre del objeto y con notacion de punto la propiedad:
-        #       ' object.method() '
+        #       ' objeto.method() '
 
-        # Los métodos usualmente no retornan nada porque mutan las propiedades del objeto, pero ellos tambien pueden retornar un valor.
+        # Los métodos usualmente no retornan nada porque mutan las propiedades del objeto, pero ellos tambien pueden retornar un valor si asi lo requiere la lógica del ejercicio.
 
-    #METODO CONSTRUCTOR. da un estado inicial a cada objeto // tiene el mismo nombre de la clase // los argumentos que le pasamos al metodo constructor cuando estamos dando vida a una nueva instancia de la clase, son los parámetros mínimos que necesita el objeto para que pueda vivir. esto significa que estamos instanciando e inicializando el objeto en la misma linea. 
-    # Pyhon usa el metodo:  ' __init__() ' que se llama automáticamente cuando un nuevo objeto es creado.
+    #METODO CONSTRUCTOR. da un estado inicial a cada objeto // tiene el mismo nombre de la clase // los argumentos que le pasamos al metodo constructor cuando estamos dando vida a una nueva instancia de la clase, son los parámetros mínimos que necesita el objeto para que pueda vivir, al momento de ser instanciado. esto significa que estamos instanciando e inicializando el objeto en la misma linea. 
+
+    # Pyhon usa el metodo:  ' __init__(self, ...) ' que se llama automáticamente cuando un nuevo objeto es creado.
 
 """    * PYTHON => 
                 def __init__(self,name): # Método Constructor # Double underscore en ambos lados indica que es una funcion especial de Py.
@@ -403,10 +437,10 @@
                     self.__height = height # Encapsulamiento (Private)
 """
 
-"""    * JAVASCRIPT => ORGANIZAR CON EL NUEVO METODO CONSTRUCTOR DE ES6-2015
-                    function Person(name) {
-                        this.name = name
-                       }
+"""    * JAVASCRIPT => 
+                constructor (name) {
+                    this.name = name
+                    }
 """
 
     # DECLARACION DE OBJETOS / (Instanciar una clase) - usualmente se instancian nuevos objetos de una clase en una nueva variable y se utiliza su método constructor:
@@ -421,6 +455,7 @@
 """    class Soldier:
             
             def __init__(self, armor, num_weapons): 
+                self.health = 5
                 self.armor = armor
                 self.num_weapons = num_weapons 
 
@@ -437,7 +472,7 @@
     #METODOS DE CLASE:
     # Al igual que los atributos de la clase, las clases tambien pueden tener metodos propios de la clase, que no pertenezcan propiamente a la instancia, en este caso, dichos atributos y metodos de la clase, no tienen acceso a la instancia del objeto, sino solo a la clase.  El primer argumento de la funcion no sería 'self' sino 'cls', adicional, debe usar el decorador '@classmethod'
 
-    # @staticmethod - es un tipo de método que funciona de forma independiente, y no usa los atributos internos de la clase o instancia para funcionar, es decir puede recibir parámetros externos.
+    # @staticmethod - es un tipo de método que funciona de forma independiente, y no usa los atributos internos de la  instancia para funcionar, es decir puede recibir parámetros externos y tambien podría usar los atributos de clase.
 
     #METODOS ESPECIALES:
         # __str__() -  se usa para imprimr, de hecho, str() invoca a __str__()
@@ -452,6 +487,16 @@
 
     # METODOS UTILES:
 
+        # FAST SHEET - 
+            # getattr(objeto, 'atributo') => (getattr(p, 'color'))
+            # hasattr(objeto, 'atributo') => (hasattr(p, 'color'))
+            # setattr(objeto, 'atributo', 'nuevo valor atributo' ) => setattr(p, 'color', 'verde')
+            # delattr(Clase, 'atributo') => delattr(Persona2, 'marca')
+            # isinstance(objeto, clase) => (isinstance(p, Persona2))
+            # issubclass(subclase, clase) => (issubclass(Persona1, Persona2))
+            # __del__(self) = del self
+            # método dir(objeto) => (dir(p))
+
         # método getattr(objeto, 'atributo') => es una forma de llamar a un atributo de un objeto con una notacion diferente al punto, devuelve el valor del atributo pasado como parámetro.
         #        _______ ______  ________
         #           1       2       3     =>  1. metodo getattr() // 2. objeto del que se desea llamar el atributo // 3. nombre del atributo del cual se desea obtener el valor 'entre_comillas' 
@@ -462,7 +507,7 @@
                 color = 'rojo'
 
             p = Persona2()
-            print (getattr(Persona2, 'color'))
+            print (getattr(p, 'color'))
             #Output => 'rojo'
 """
 
@@ -495,7 +540,7 @@
             print (p.color)
             # Output => 'verde'
 """
-        #método delattr(Clase, 'atributo' => permite eliminar un atributo de una clase.
+        #método delattr(Clase, 'atributo') => permite eliminar un atributo de una clase.
         #       _______ ______  ________   ______________________
         #           1       2       3               4               =>  1. metodo deltattr() // 2. clase de la cual se desea eliminar el atributo // 3. nombre del atributo que se desea utilizar
         # Example:
@@ -508,7 +553,7 @@
             print (p.marca) # Output => 'nunguna'
             delattr(Persona2, 'marca')
             print (p.marca) # Output => 'Persona2' object has no attribute 'marca'
-            # Output => 'verde'
+
  """
 
         #método isinstance(objeto, clase) => devuelve un valor booleano de si un objeto es una instancia de x clase
@@ -531,7 +576,7 @@
 
 #_____________________________________________________________
 
-# 3. PROGRAMAR LOS PASOS ANTERIORES (PHP & JAVA)
+# 3. BONUS - PROGRAMAR LOS PASOS ANTERIORES (PHP & JAVA)
 
 # DEFINIR UNA CLASE
 # palabra revervada class:
@@ -565,14 +610,7 @@
                         $this->name = name;
                        }"""
 
-# EJEMPLO CREACION OBJETO EN PY
 
-""" from car import Car # lo primero es importar el módulo y la clase, debe estar en la misma carpeta donde esta el archivo que vamos a llamar
-
-car = Car () # luego instanciamos el objeto en una nueva variable y empezamos a inicializar los atributos de la clase asignandoles valores.
-car.license = "AMS587"
-car.driver = "Camila Gomez"
-print(vars(car)) # esta es la forma de imprimir en consola  las priedades que ya hemos inicializado """
 
 
 
